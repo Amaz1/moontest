@@ -1,4 +1,8 @@
---picks
+-- Tools
+
+--
+-- Picks
+--
 
 minetest.register_tool("moontest:pick_lunarium", {
 	description = "Lunarium Pickaxe",
@@ -26,7 +30,9 @@ minetest.register_tool("moontest:pick_titanium", {
 	},
 })
 
---shovels
+--
+-- Shovels
+--
 
 minetest.register_tool("moontest:shovel_lunarium", {
 	description = "Lunarium Shovel",
@@ -56,7 +62,9 @@ minetest.register_tool("moontest:shovel_titanium", {
 	},
 })
 
---axes
+--
+-- Axes
+--
 
 minetest.register_tool("moontest:axe_lunarium", {
 	description = "Lunarium Axe",
@@ -84,7 +92,9 @@ minetest.register_tool("moontest:axe_titanium", {
 	},
 })
 
---swords :D
+--
+-- Swords
+--
 
 minetest.register_tool("moontest:sword_lunarium", {
 	description = "Lunarium Sword",

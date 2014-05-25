@@ -1,6 +1,9 @@
 -- Nodes
 
+--
 -- Natural Blocks
+--
+
 minetest.register_node("moontest:stone", {
 	description = "Moon Stone",
 	tiles = {"moontest_stone.png"},
@@ -24,7 +27,47 @@ minetest.register_node("moontest:basalt", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("moontest:waterice", {
+	description = "Water Ice",
+	tiles = {"moontest_waterice.png"},
+	light_source = 1,
+	paramtype = "light",
+	sunlight_propagates = true,
+	groups = {cracky=3,melts=1},
+	sounds = default.node_sound_glass_defaults(),
+})
+
+minetest.register_node("moontest:tree", {
+	description = "Moon Tree",
+	tiles = {"moontest_tree_top.png", "moontest_tree_top.png", "moontest_tree.png"},
+	paramtype2 = "facedir",
+	is_ground_content = false,
+	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
+	sounds = default.node_sound_wood_defaults(),
+	on_place = minetest.rotate_node
+})
+
+minetest.register_node("moontest:leaves", {
+	description = "Moon Leaves",
+	drawtype = "allfaces_optional",
+	visual_scale = 1.3,
+	tiles = {"moontest_leaves.png"},
+	paramtype = "light",
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"moontest:sapling"},rarity = 20,},
+			{items = {"moontest:leaves"},}
+		}
+	},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
+--
 -- Footsteps
+--
+
 minetest.register_node("moontest:dustprint1", {
 	description = "Moon Dust Footprint1",
 	tiles = {"moontest_dustprint1.png", "moontest_dust.png"},
@@ -44,6 +87,10 @@ minetest.register_node("moontest:dustprint2", {
 		footstep = {name="default_sand_footstep", gain=0.1},
 	}),
 })
+
+--
+-- Air stuff
+--
 
 minetest.register_node("moontest:vacuum", {
 	description = "Vacuum",
@@ -88,59 +135,19 @@ minetest.register_node("moontest:air_shield", {
 	post_effect_color = {a=100, r=0, g=150, b=255},
 })
 
-minetest.register_node("moontest:airgen", {
-	description = "Air Generator",
-	tiles = {"moontest_airgen.png"},
+minetest.register_node("moontest:airlock", {
+	description = "Airlock",
+	tiles = {"moontest_airlock.png"},
+	light_source = 14,
+	walkable = false,
+	post_effect_color = {a=255, r=0, g=0, b=0},
 	groups = {cracky=3},
 	sounds = default.node_sound_stone_defaults(),
-	on_construct = function(pos)
-		local x = pos.x
-		local y = pos.y
-		local z = pos.z
-		--fire up the voxel manipulator
-		local vm = minetest.get_voxel_manip()
-		local p1 = {x=x-16,y=y-16,z=z-16}
-		local p2 = {x=x+16,y=y+16,z=z+16}
-		pmin, pmax = vm:read_from_map(p1,p2)
-		local area = VoxelArea:new{MinEdge=pmin, MaxEdge=pmax}
-		local data = vm:get_data()
-		
-		local c_vac = minetest.get_content_id("moontest:vacuum")
-		local c_gair = minetest.get_content_id("moontest:air")
-		
-		for i = -16,16 do
-		for j = -16,16 do
-		for k = -16,16 do
-			if not (i == 0 and j == 0 and k == 0) then
-				if i*i+j*j+k*k <= 16 * 16 + 16 then
-					--grab the location of the node in question
-					local vi = area:index(x+i, y+j, z+k)
-					--if it's vacuum, it won't be now!
-					if data[vi] == c_vac then
-						data[vi] = c_gair
-					end
-				end
-			end
-		end
-		end
-		end
-		
-		--write the voxel manipulator data back to world
-		vm:set_data(data)
-		vm:write_to_map(data)
-		vm:update_map()
-	end
 })
 
-minetest.register_node("moontest:waterice", {
-	description = "Water Ice",
-	tiles = {"moontest_waterice.png"},
-	light_source = 1,
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {cracky=3,melts=1},
-	sounds = default.node_sound_glass_defaults(),
-})
+--
+-- Liquids
+--
 
 minetest.register_node("moontest:hlflowing", {
 	description = "Flowing Hydroponic Liquid",
@@ -206,26 +213,12 @@ minetest.register_node("moontest:hlsource", {
 	groups = {water=3, liquid=3, puts_out_fire=1},
 })
 
-minetest.register_node("moontest:soil", {
-	description = "Moonsoil",
-	tiles = {"moontest_soil.png"},
-	groups = {crumbly=3, falling_node=1, soil=3},
-	drop = "moontest:dust",
-	sounds = default.node_sound_dirt_defaults(),
-})
-
-minetest.register_node("moontest:airlock", {
-	description = "Airlock",
-	tiles = {"moontest_airlock.png"},
-	light_source = 14,
-	walkable = false,
-	post_effect_color = {a=255, r=0, g=0, b=0},
-	groups = {cracky=3},
-	sounds = default.node_sound_stone_defaults(),
-})
+--
+-- Other Blocks
+--
 
 minetest.register_node("moontest:glass", {
-	description = "MR Glass",
+	description = "Glass",
 	drawtype = "glasslike",
 	tiles = {"default_obsidian_glass.png"},
 	paramtype = "light",
@@ -245,33 +238,6 @@ minetest.register_node("moontest:sapling", {
 	walkable = false,
 	groups = {snappy=2,dig_immediate=3,flammable=2},
 	sounds = default.node_sound_defaults(),
-})
-
-minetest.register_node("moontest:tree", {
-	description = "Moon Tree",
-	tiles = {"moontest_tree_top.png", "moontest_tree_top.png", "moontest_tree.png"},
-	paramtype2 = "facedir",
-	is_ground_content = false,
-	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
-	sounds = default.node_sound_wood_defaults(),
-	on_place = minetest.rotate_node
-})
-
-minetest.register_node("moontest:leaves", {
-	description = "Moon Leaves",
-	drawtype = "allfaces_optional",
-	visual_scale = 1.3,
-	tiles = {"moontest_leaves.png"},
-	paramtype = "light",
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
-	drop = {
-		max_items = 1,
-		items = {
-			{items = {"moontest:sapling"},rarity = 20,},
-			{items = {"moontest:leaves"},}
-		}
-	},
-	sounds = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_node("moontest:stonebrick", {
@@ -325,62 +291,6 @@ minetest.register_node("moontest:stonestair", {
 			{-0.5, 0, 0, 0.5, 0.5, 0.5},
 		},
 	},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("moontest:lightore", {
-	description = "Light ore",
-	tiles = {"moontest_stone.png^moontest_light_ore.png"},
-	light_source = 7,
-	groups = {cracky = 3, stone = 1},
-	drop = "moontest:light_crystal",
-})
-
-minetest.register_node("moontest:phosphorusore", {
-	description = "Phosphorus Ore",
-	tiles = {"moontest_stone.png^moontest_mineral_phosphorus.png"},
-	groups = {cracky = 3, stone = 1},
-	drop = "moontest:phosphorus_lump",
-})
-
-minetest.register_node("moontest:siliconore", {
-	description = "Silicon ore",
-	tiles = {"moontest_stone.png^moontest_mineral_silicon.png"},
-	groups = {cracky = 3, stone = 1},
-	drop = "mesecons_materials:silicon",
-})
-
-minetest.register_node("moontest:titaniumore", {
-	description = "Titanium ore",
-	tiles = {"moontest_stone.png^moontest_mineral_titanium.png"},
-	groups = {cracky = 2, stone = 1},
-	drop = "moontest:titanium_lump",
-})
-
-minetest.register_node(":default:stone_with_iron", {
-	description = "Iron Ore",
-	tiles = {"moontest_stone.png^default_mineral_iron.png"},
-	is_ground_content = true,
-	groups = {cracky=2, stone = 1},
-	drop = 'default:iron_lump',
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node(":default:stone_with_mese", {
-	description = "Mese Ore",
-	tiles = {"moontest_stone.png^default_mineral_mese.png"},
-	is_ground_content = true,
-	groups = {cracky=1, stone = 1},
-	drop = "default:mese_crystal",
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("moontest:lunariumore", {
-	description = "Lunarium Ore",
-	tiles = {"moontest_stone.png^moontest_mineral_lunarium.png"},
-	is_ground_content = true,
-	groups = {cracky=1, stone = 1},
-	drop = "moontest:lunarium_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -471,61 +381,53 @@ minetest.register_node("moontest:unlit_torch", {
 	end,
 })
 
---ABM to extinguish torches in vacuum
-minetest.register_abm({
-	nodenames = {"default:torch"},
-	neighbors = {"moontest:vacuum"},
-	interval = 1.0,
-	chance = 1,
-	action = function(pos, node, active_object_count, active_object_count_wider)
-		local p2 = node.param2 --store rotation of old torch
-		minetest.set_node(pos, {name = "moontest:unlit_torch", param2=p2})
-	end,
+--
+-- Ores
+--
+
+minetest.register_node("moontest:lightore", {
+	description = "Light ore",
+	tiles = {"moontest_stone.png^moontest_light_ore.png"},
+	light_source = 7,
+	groups = {cracky = 3, stone = 1},
+	drop = "moontest:light_crystal",
 })
 
--- Items
-
-minetest.register_craftitem("moontest:spacesuit", {
-	description = "Spacesuit",
-	inventory_image = "moontest_spacesuit.png",
+minetest.register_node("moontest:phosphorusore", {
+	description = "Phosphorus Ore",
+	tiles = {"moontest_stone.png^moontest_mineral_phosphorus.png"},
+	groups = {cracky = 3, stone = 1},
+	drop = "moontest:phosphorus_lump",
 })
 
-minetest.register_craftitem("moontest:light_crystal", {
-	description = "Light Cyrstal",
-	inventory_image = "moontest_light_crystal.png",
+minetest.register_node("moontest:siliconore", {
+	description = "Silicon ore",
+	tiles = {"moontest_stone.png^moontest_mineral_silicon.png"},
+	groups = {cracky = 3, stone = 1},
+	drop = "mesecons_materials:silicon",
 })
 
-minetest.register_craftitem("moontest:phosphorus_lump", {
-	description = "Phosphorus Lump",
-	inventory_image = "moontest_phosphorus_lump.png",
+minetest.register_node("moontest:titaniumore", {
+	description = "Titanium ore",
+	tiles = {"moontest_stone.png^moontest_mineral_titanium.png"},
+	groups = {cracky = 2, stone = 1},
+	drop = "moontest:titanium_lump",
 })
 
-minetest.register_craftitem("moontest:titanium_lump", {
-	description = "Titanium Lump",
-	inventory_image = "moontest_titanium_lump.png",
+minetest.register_node("moontest:ironore", {
+	description = "Iron Ore",
+	tiles = {"moontest_stone.png^default_mineral_iron.png"},
+	is_ground_content = true,
+	groups = {cracky=2, stone = 1},
+	drop = 'default:iron_lump',
+	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_craftitem("moontest:titanium_ingot", {
-	description = "Titanium Ingot",
-	inventory_image = "moontest_titanium_ingot.png",
-})
-
-minetest.register_craftitem("moontest:lunarium_lump", {
-	description = "Lunarium Lump",
-	inventory_image = "moontest_lunarium_lump.png",
-})
-
-minetest.register_craftitem("moontest:lunarium_ingot", {
-	description = "Lunarium Ingot",
-	inventory_image = "moontest_lunarium_ingot.png",
-})
-
-minetest.register_craftitem("moontest:helmet", {
-	description = "Helmet",
-	inventory_image = "moontest_helmet.png",
-})
-
-minetest.register_craftitem("moontest:lifesupport", {
-	description = "Life Support",
-	inventory_image = "moontest_lifesupport.png",
+minetest.register_node("moontest:lunariumore", {
+	description = "Lunarium Ore",
+	tiles = {"moontest_stone.png^moontest_mineral_lunarium.png"},
+	is_ground_content = true,
+	groups = {cracky=1, stone = 1},
+	drop = "moontest:lunarium_lump",
+	sounds = default.node_sound_stone_defaults(),
 })

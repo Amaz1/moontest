@@ -3,17 +3,17 @@
 
 moontest = {}
 
-local player_pos = {}
-local player_pos_previous = {}
-
 dofile(minetest.get_modpath("moontest").."/nodes.lua")
 dofile(minetest.get_modpath("moontest").."/crafting.lua")
 dofile(minetest.get_modpath("moontest").."/tools.lua")
 
--- Globalstep function
+local player_pos = {}
+local player_pos_previous = {}
+
 minetest.register_globalstep(function(dtime)
 	for _, player in ipairs(minetest.get_connected_players()) do
-		if FOOT and math.random() < 0.3 and player_pos_previous[player:get_player_name()] ~= nil then -- eternal footprints
+        -- Footprints
+		if FOOT and math.random() < 0.3 and player_pos_previous[player:get_player_name()] ~= nil then
 			local pos = player:getpos()
 			player_pos[player:get_player_name()] = {x=math.floor(pos.x+0.5),y=math.floor(pos.y+0.2),z=math.floor(pos.z+0.5)}
 			local p_ground = {x=math.floor(pos.x+0.5),y=math.floor(pos.y+0.4),z=math.floor(pos.z+0.5)}
@@ -36,6 +36,7 @@ minetest.register_globalstep(function(dtime)
 				z=player_pos[player:get_player_name()].z
 			}
 		end
+        -- Check if player has spacesuit in inventory
 		if math.random() < 0.1 then
 			if player:get_inventory():contains_item("main", "moontest:spacesuit")
 			and player:get_breath() < 11 then
@@ -48,49 +49,7 @@ minetest.register_globalstep(function(dtime)
 	end
 end)
 
--- Space apple tree
-
-function moontest_appletree(pos)
-	local x = pos.x
-	local y = pos.y
-	local z = pos.z
-	for j = -2, -1 do
-		local nodename = minetest.get_node({x=x,y=y+j,z=z}).name
-		if nodename ~= "moontest:soil" then
-			return
-		end
-	end
-	for j = 1, 5 do
-		local nodename = minetest.get_node({x=x,y=y+j,z=z}).name
-		if nodename ~= "moontest:air" then
-			return
-		end
-	end
-	for j = -2, 4 do
-		if j >= 1 then
-			for i = -2, 2 do
-			for k = -2, 2 do
-				local nodename = minetest.get_node({x=x+i,y=y+j+1,z=z+k}).name
-				if math.random() > (math.abs(i) + math.abs(k)) / 16 then
-					if math.random(13) == 2 then
-						minetest.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},{name="default:apple"})
-					else
-						minetest.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},{name="moontest:leaves"})
-					end
-				else
-					minetest.add_node({x=x+i,y=y+j+1,z=z+k},{name="moontest:air"})
-					minetest.get_meta({x=x+i,y=y+j+1,z=z+k}):set_int("spread", 16)
-				end
-			end
-			end
-		end
-		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="moontest:tree"})
-	end
-	print ("[moontest] Appletree sapling grows")
-end
-
 -- Vacuum or air flows into a dug hole
-
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	local x = pos.x
 	local y = pos.y
@@ -121,7 +80,7 @@ end)
 
 -- Air gets filled with vacuum or moontest:air, depending on surroudings
 -- this is the hackiest code I've ever written
--- If neighbors worked as I would like it to, this wouldn't be necessary...
+-- If neighbours worked as I would like it to, this wouldn't be necessary...
 minetest.register_abm({
 	nodenames = {"moontest:air", "air"},
 	neighbors = {"moontest:vacuum", "moontest:air"},
@@ -182,7 +141,6 @@ minetest.register_abm({
 })
 
 -- Hydroponic saturation
-
 minetest.register_abm({
 	nodenames = {"moontest:hlsource", "moontest:hlflowing"},
 	neighbors = {"moontest:dust", "moontest:dustprint1", "moontest:dustprint2"},
@@ -211,7 +169,6 @@ minetest.register_abm({
 })
 
 -- Soil drying
-
 minetest.register_abm({
 	nodenames = {"moontest:soil"},
 	interval = 31,
@@ -238,12 +195,23 @@ minetest.register_abm({
 })
 
 -- Space appletree from sapling
-
 minetest.register_abm({
 	nodenames = {"moontest:sapling"},
 	interval = 57,
 	chance = 3,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		moontest_appletree(pos)
+	end,
+})
+
+--ABM to extinguish torches in vacuum
+minetest.register_abm({
+	nodenames = {"default:torch"},
+	neighbors = {"moontest:vacuum"},
+	interval = 1.0,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local p2 = node.param2 --store rotation of old torch
+		minetest.set_node(pos, {name = "moontest:unlit_torch", param2=p2})
 	end,
 })
