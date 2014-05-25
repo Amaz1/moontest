@@ -6,7 +6,7 @@ minetest.register_craftitem("moontest:spacesuit", {
 })
 
 minetest.register_craftitem("moontest:light_crystal", {
-	description = "Light Cyrstal",
+	description = "Light Crystal",
 	inventory_image = "moontest_light_crystal.png",
 })
 
