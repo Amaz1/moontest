@@ -20,6 +20,14 @@ minetest.register_node("moontest:dust", {
 	}),
 })
 
+minetest.register_node("moontest:soil", {
+	description = "Moonsoil",
+	tiles = {"moontest_soil.png"},
+	groups = {crumbly=3, falling_node=1, soil=3},
+	drop = "moontest:dust",
+	sounds = default.node_sound_dirt_defaults(),
+})
+
 minetest.register_node("moontest:basalt", {
 	description = "Basalt",
 	tiles = {"moontest_basalt.png"},
