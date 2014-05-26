@@ -124,3 +124,39 @@ minetest.register_ore({
 	height_max     = -256,
 	flags          = "absheight",
 })
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "moontest:meseore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 18*18*18,
+	clust_num_ores = 3,
+	clust_size     = 2,
+	height_min     = -255,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "moontest:meseore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 14*14*14,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -256,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "moontest:meseore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 36*36*36,
+	clust_num_ores = 3,
+	clust_size     = 2,
+	height_min     = -31000,
+	height_max     = -1024,
+	flags          = "absheight",
+})

@@ -467,6 +467,15 @@ minetest.register_node("moontest:ironore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("moontest:meseore", {
+	description = "Mese Ore",
+	tiles = {"moontest_stone.png^default_mineral_mese.png"},
+	is_ground_content = true,
+	groups = {cracky=1, stone = 1},
+	drop = "default:mese_crystal",
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("moontest:lunariumore", {
 	description = "Lunarium Ore",
 	tiles = {"moontest_stone.png^moontest_mineral_lunarium.png"},
