@@ -227,7 +227,7 @@ minetest.register_node("moontest:hlflowing", {
 	liquidtype = "flowing",
 	liquid_alternative_flowing = "moontest:hlflowing",
 	liquid_alternative_source = "moontest:hlsource",
-	liquid_viscosity = 1,
+	liquid_viscosity = 7,
 	post_effect_color = {a=224, r=115, g=55, b=24},
 	groups = {water=3, liquid=3, puts_out_fire=1, not_in_creative_inventory=1},
 })
@@ -260,7 +260,7 @@ minetest.register_node("moontest:hlsource", {
 	liquidtype = "source",
 	liquid_alternative_flowing = "moontest:hlflowing",
 	liquid_alternative_source = "moontest:hlsource",
-	liquid_viscosity = 1,
+	liquid_viscosity = 7,
 	post_effect_color = {a=224, r=115, g=55, b=24},
 	groups = {water=3, liquid=3, puts_out_fire=1},
 })

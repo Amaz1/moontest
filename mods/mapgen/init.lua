@@ -51,7 +51,6 @@ minetest.register_biome({
 -- Aliases
 
 minetest.register_alias("mapgen_lava_source", "default:lava_source")
-minetest.register_alias("mapgen_water_source", "moontest:hlsource")
 minetest.register_alias("mapgen_stone", "moontest:stone")
 minetest.register_alias("mapgen_dirt", "moontest:dust")
 
