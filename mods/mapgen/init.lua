@@ -1,6 +1,7 @@
 -- Mapgen
 
 dofile(minetest.get_modpath("mapgen").."/ores.lua")
+dofile(minetest.get_modpath("mapgen").."/apollo.lua")
 
 -- Set mapgen mode to v7
 minetest.register_on_mapgen_init(function(params)
@@ -75,6 +76,25 @@ local function moontest_tree(x, y, z, area, data)
 	end
 end
 
+--should spawn be set?
+local players = 0
+local gen_spawn = false
+minetest.register_on_newplayer(function(player)
+	players = players + 1
+	if minetest.is_singleplayer() then
+		gen_spawn = true
+	elseif players <= 1 then
+		gen_spawn = true
+	else
+		gen_spawn = false
+		player:setpos(minetest.setting_get_pos("static_spawnpoint"))
+	end	
+	minetest.after(4, function(param)
+		point = minetest.setting_get_pos("static_spawnpoint")
+		param:setpos(point)
+	end, player)
+end)
+
 --Set everything to vacuum on generate
 minetest.register_on_generated(function(minp, maxp, seed)
 	local x1 = maxp.x
@@ -91,6 +111,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local c_air = minetest.get_content_id("air")
 	local c_vac = minetest.get_content_id("moontest:vacuum")
 	local c_dust = minetest.get_content_id("moontest:dust")
+	local c_hl = minetest.get_content_id("moontest:hlsource")
+	
+	
 	--loop through every node of the chunk
 	for z = z0, z1 do
 		for x = x0, x1 do
@@ -105,6 +128,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			--gen trees
 			--find surface
 			local yasurf = false -- y of above surface node
+			local lasurf = false -- if surface is liquid
 			for y = y1, 2, -1 do --decrement, not increment
 				local vi = area:index(x, y, z)
 				local c_node = data[vi]
@@ -113,11 +137,41 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				elseif c_node == c_dust then --if first surface node
 					yasurf = y + 1 --set the position of the surface
 					break
+				elseif c_node == c_hl then
+					wasurf = y + 1
+					break
 				end
 			end
-			if yasurf then --if surface was found
-				if math.random() <= 0.0001337 then --much LEET
-					moontest_tree(x, yasurf+1, z, area, data)--place a tree
+			if yasurf or lasurf then
+				if yasurf then --if surface was found
+					if math.random() <= 0.0001337 then --much LEET
+						moontest_tree(x, yasurf+1, z, area, data)--place a tree
+					end
+				end
+				if gen_spawn then
+					local spawnpoint = {x=0,y=0,z=0}
+					if minetest.setting_get_pos("static_spawnpoint") then
+						spawnpoint = minetest.setting_get_pos("static_spawnpoint")
+						gen_spawn = false
+					else 
+						if z >= z0 + 20 and z <= z1 -20 then
+						if x >= x0 + 20 and x <= x1 -20 then
+							if lasurf then
+								spawnpoint = {x=x, y=yasurf, z=z}
+							else
+								spawnpoint = {x=x, y=lasurf, z=z}
+							end
+							print(spawnpoint.x)
+							newy = spawnpoint.y + 7
+							minetest.setting_set("static_spawnpoint", spawnpoint.x..","..spawnpoint.y..","..spawnpoint.z)
+							gen_spawn = false
+						end
+						end
+					end
+					--read param2 data
+					local p2data = vm:get_param2_data()
+					mapgen:apollo_gen(area, data, p2data, spawnpoint)
+					vm:set_param2_data(p2data)	
 				end
 			end
 		end
@@ -127,6 +181,14 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:set_lighting({day=0, night=0})
 	vm:calc_lighting()
 	vm:write_to_map(data)
+	
+	--this was commented out because, while it places nodes, they don't have correct formspecs
+	--local chestpos = minetest.setting_get_pos("static_spawnpoint")
+	--minetest.place_node({x=chestpos.x - 2,y=chestpos.y,z=chestpos.z}, {name="default:chest", param2=3})
+	--local meta = minetest.get_meta({x=chestpos.x - 2,y=chestpos.y,z=chestpos.z})
+	--local chestinv = meta:get_inventory()
+	--chestinv:add_item("main", 'default:stone')
+	--chestinv:add_item("main", 'ufos:ufo')
 end)
 
 --make liquid delete vacuum and air nodes nearby so as to allow flowing
