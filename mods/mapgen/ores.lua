@@ -57,6 +57,29 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
+	ore            = "moontest:copperore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 12*12*12,
+	clust_num_ores = 4,
+	clust_size     = 3,
+	height_min     = -63,
+	height_max     = -16,
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "moontest:copperore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 9*9*9,
+	clust_num_ores = 5,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -64,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
 	ore            = "moontest:titaniumore",
 	wherein        = "moontest:stone",
 	clust_scarcity = 12*12*12,
@@ -163,11 +186,35 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
+	ore            = "moontest:diamondore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 17*17*17,
+	clust_num_ores = 4,
+	clust_size     = 3,
+	height_min     = -255,
+	height_max     = -128,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "moontest:diamondore",
+	wherein        = "moontest:stone",
+	clust_scarcity = 15*15*15,
+	clust_num_ores = 4,
+	clust_size     = 3,
+	height_min     = -31000,
+	height_max     = -256,
+	flags          = "absheight",
+})
+
+minetest.register_ore({
+	ore_type       = "scatter",
 	ore            = "moontest:hlsource",
 	wherein        = "default:stone",
 	clust_scarcity = 17*17*17,
-	clust_num_ores = 5,
-	clust_size     = 2,
+	clust_num_ores = 17,
+	clust_size     = 3,
 	height_min     = -255,
 	height_max     = -128,
 	flags          = "absheight",
@@ -178,8 +225,8 @@ minetest.register_ore({
 	ore            = "moontest:hlsource",
 	wherein        = "default:stone",
 	clust_scarcity = 15*15*15,
-	clust_num_ores = 8,
-	clust_size     = 3,
+	clust_num_ores = 40,
+	clust_size     = 4,
 	height_min     = -31000,
 	height_max     = -256,
 	flags          = "absheight",

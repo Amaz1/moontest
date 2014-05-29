@@ -57,6 +57,7 @@ minetest.register_alias("mapgen_gravel", "moontest:compressed_dust")
 -- add these two in case dungeons are enabled
 minetest.register_alias("mapgen_mossycobble", "moontest:cobble")
 minetest.register_alias("mapgen_cobble", "moontest:cobble")
+minetest.register_alias("mapgen_stair_cobble", "moontest:cobblestair")
 
 -- treegen function
 local function moontest_tree(x, y, z, area, data)
