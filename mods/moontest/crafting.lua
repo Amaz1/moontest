@@ -77,9 +77,25 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "moontest:stoneslab 4",
+    output = "moontest:lunariumblock",
+    recipe = {
+        {"moontest:lunarium_ingot", "moontest:lunarium_ingot", "moontest:lunarium_ingot"},
+        {"moontest:lunarium_ingot", "moontest:lunarium_ingot", "moontest:lunarium_ingot"},
+        {"moontest:lunarium_ingot", "moontest:lunarium_ingot", "moontest:lunarium_ingot"},
+    },
+})
+
+minetest.register_craft({
+    output = "moontest:lunarium_ingot 9",
+    recipe = {
+        {"moontest:lunariumblock"},
+    },
+})
+
+minetest.register_craft({
+	output = "moontest:stoneslab 6", -- 4 --> 6 because of stone pressure plates
 	recipe = {
-		{"moontest:stone", "moontest:stone"},
+		{"moontest:stone", "moontest:stone", "moontest:stone"},
 	}
 })
 
@@ -88,6 +104,21 @@ minetest.register_craft({
 	recipe = {
 		{"moontest:stone", ""},
 		{"moontest:stone", "moontest:stone"},
+	}
+})
+
+minetest.register_craft({
+	output = "moontest:cobbleslab 6",
+	recipe = {
+		{"moontest:cobble", "moontest:cobble", "moontest:cobble"},
+	}
+})
+
+minetest.register_craft({
+	output = "moontest:cobblestair 4",
+	recipe = {
+		{"moontest:cobble", ""},
+		{"moontest:cobble", "moontest:cobble"},
 	}
 })
 
@@ -159,7 +190,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "mesecons_switch:mesecon_switch_off 2",
 	recipe = {
-		{"default:steel_ingot","moontest:stone","default:steel_ingot"},
+		{"default:steel_ingot","moontest:cobble","default:steel_ingot"},
 		{"group:mesecon_conductor_craftable","","group:mesecon_conductor_craftable"},
 	}
 })
@@ -176,7 +207,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "mesecons_pressureplates:pressure_plate_stone_off",
 	recipe = {
-	    {"moontest:stone","moontest:stone"},
+	    {"moontest:cobble","moontest:cobble"},
 	}
 })
 
@@ -188,11 +219,20 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "mesecons_lightstone:lightstone_gray_off",
+	recipe = {
+		{"","moontest:cobble",""},
+		{"moontest:cobble","default:torch","moontest:cobble"},
+		{"","group:mesecon_conductor_craftable",""}
+	}
+})
+
+minetest.register_craft({
 	output = "mesecons_pistons:piston_normal_off 2",
 	recipe = {
 		{"group:wood", "group:wood", "group:wood"},
-		{"moontest:stone", "default:steel_ingot", "moontest:stone"},
-		{"moontest:stone", "group:mesecon_conductor_craftable", "moontest:stone"},
+		{"moontest:cobble", "default:steel_ingot", "moontest:cobble"},
+		{"moontest:cobble", "group:mesecon_conductor_craftable", "moontest:cobble"},
 	}
 })
 
@@ -208,18 +248,18 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'mesecons_random:removestone 4',
 	recipe = {
-		{"", "moontest:stone", ""},
-		{"moontest:stone", "group:mesecon_conductor_craftable", "moontest:stone"},
-		{"", "moontest:stone", ""},
+		{"", "moontest:cobble", ""},
+		{"moontest:cobble", "group:mesecon_conductor_craftable", "moontest:cobble"},
+		{"", "moontest:cobble", ""},
 	}
 })
 
 minetest.register_craft({
 	output = 'mesecons_random:ghoststone 4',
 	recipe = {
-		{"default:steel_ingot", "moontest:stone", "default:steel_ingot"},
-		{"moontest:stone", "group:mesecon_conductor_craftable", "moontest:stone"},
-		{"default:steel_ingot", "moontest:stone", "default:steel_ingot"},
+		{"default:steel_ingot", "moontest:cobble", "default:steel_ingot"},
+		{"moontest:cobble", "group:mesecon_conductor_craftable", "moontest:cobble"},
+		{"default:steel_ingot", "moontest:cobble", "default:steel_ingot"},
 	}
 })
 
@@ -227,7 +267,7 @@ minetest.register_craft({
 	output = "mesecons_delayer:delayer_off_1",
 	recipe = {
 		{"mesecons_torch:mesecon_torch_on", "group:mesecon_conductor_craftable", "mesecons_torch:mesecon_torch_on"},
-		{"moontest:stone","moontest:stone", "moontest:stone"},
+		{"moontest:cobble","moontest:cobble", "moontest:cobble"},
 	}
 })
 
@@ -309,8 +349,14 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
-	output = "moontest:glass",
+	output = "default:glass",
 	recipe = "moontest:dust",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "moontest:stone",
+	recipe = "moontest:cobble",
 })
 
 minetest.register_craft({

@@ -8,6 +8,15 @@ minetest.register_node("moontest:stone", {
 	description = "Moon Stone",
 	tiles = {"moontest_stone.png"},
 	groups = {cracky=3},
+	drop = "moontest:cobble",
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("moontest:cobble", {
+	description = "Moon Cobblestone",
+	tiles = {"moontest_cobble.png"},
+	is_ground_content = true,
+	groups = {cracky=3, stone=2},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -279,6 +288,14 @@ minetest.register_node("moontest:glass", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
+minetest.register_node("moontest:lunariumblock", {
+	description = "Lunarium Block",
+	tiles = {"moontest_lunarium_block.png"},
+	is_ground_content = true,
+	groups = {cracky=1,level=2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("moontest:sapling", {
 	description = "Moon Sapling",
 	drawtype = "plantlike",
@@ -325,6 +342,53 @@ minetest.register_node("moontest:stoneslab", {
 minetest.register_node("moontest:stonestair", {
 	description = "Moon Stone Stair",
 	tiles = {"moontest_stonebricktop.png", "moontest_stonebrickbot.png", "moontest_stonebrick.png"},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky=3},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+			{-0.5, 0, 0, 0.5, 0.5, 0.5},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
+			{-0.5, 0, 0, 0.5, 0.5, 0.5},
+		},
+	},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("moontest:cobbleslab", {
+	description = "Moon Cobble Slab",
+	tiles = {"moontest_cobble.png"},
+	drawtype = "nodebox",
+	paramtype = "light",
+	sunlight_propagates = true,
+	buildable_to = true,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0, 0.5}
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0, 0.5}
+		},
+	},
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("moontest:cobblestair", {
+	description = "Moon Cobble Stair",
+	tiles = {"moontest_cobble.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
