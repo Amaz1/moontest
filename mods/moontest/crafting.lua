@@ -135,6 +135,101 @@ minetest.register_craft({
 	}
 })
 
+--Recipe redefinitions for compatibility
+
+--Mesecons
+minetest.register_craft({
+	output = "mesecons_powerplant:power_plant",
+	recipe = {
+		{"group:mesecon_conductor_craftable"},
+		{"group:mesecon_conductor_craftable"},
+		{"moontest:sapling"},
+	}
+
+minetest.register_craft({
+	output = "mesecons_blinkyplant:blinky_plant_off 1",
+	recipe = {
+		{"","group:mesecon_conductor_craftable",""},
+		{"","group:mesecon_conductor_craftable",""},
+		{"moontest:sapling","moontest:sapling","moontest:sapling"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_switch:mesecon_switch_off 2",
+	recipe = {
+		{"default:steel_ingot","moontest:stone","default:steel_ingot"},
+		{"group:mesecon_conductor_craftable","","group:mesecon_conductor_craftable"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_walllever:wall_lever_off 2",
+	recipe = {
+	    {"group:mesecon_conductor_craftable"},
+		{"moontest:stone"},
+		{"default:stick"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_pressureplates:pressure_plate_stone_off",
+	recipe = {
+	    {"moontest:stone","moontest:stone"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_button:button_off 2",
+	recipe = {
+		{"group:mesecon_conductor_craftable","moontest:stone"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_pistons:piston_normal_off 2",
+	recipe = {
+		{"group:wood", "group:wood", "group:wood"},
+		{"moontest:stone", "default:steel_ingot", "moontest:stone"},
+		{"moontest:stone", "group:mesecon_conductor_craftable", "moontest:stone"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_movestones:movestone 2",
+	recipe = {
+		{"moontest:stone", "moontest:stone", "moontest:stone"},
+		{"group:mesecon_conductor_craftable", "group:mesecon_conductor_craftable", "group:mesecon_conductor_craftable"},
+		{"moontest:stone", "moontest:stone", "moontest:stone"},
+	}
+})
+
+minetest.register_craft({
+	output = 'mesecons_random:removestone 4',
+	recipe = {
+		{"", "moontest:stone", ""},
+		{"moontest:stone", "group:mesecon_conductor_craftable", "moontest:stone"},
+		{"", "moontest:stone", ""},
+	}
+})
+
+minetest.register_craft({
+	output = 'mesecons_random:ghoststone 4',
+	recipe = {
+		{"default:steel_ingot", "moontest:stone", "default:steel_ingot"},
+		{"moontest:stone", "group:mesecon_conductor_craftable", "moontest:stone"},
+		{"default:steel_ingot", "moontest:stone", "default:steel_ingot"},
+	}
+})
+
+minetest.register_craft({
+	output = "mesecons_delayer:delayer_off_1",
+	recipe = {
+		{"mesecons_torch:mesecon_torch_on", "group:mesecon_conductor_craftable", "mesecons_torch:mesecon_torch_on"},
+		{"moontest:stone","moontest:stone", "moontest:stone"},
+	}
+})
+
 --Tools
 
 minetest.register_craft({
@@ -239,4 +334,12 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "moontest:phosphorus_lump",
 	burntime = 50,
+})
+
+--new recipe for glue from mesecons to keep compatibility
+minetest.register_craft({
+	output = "mesecons_materials:glue 2",
+	type = "cooking",
+	recipe = "moontest:sapling",
+	cooktime = 2
 })
