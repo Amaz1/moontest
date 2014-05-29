@@ -53,8 +53,12 @@ minetest.register_biome({
 minetest.register_alias("mapgen_lava_source", "default:lava_source")
 minetest.register_alias("mapgen_stone", "moontest:stone")
 minetest.register_alias("mapgen_dirt", "moontest:dust")
+minetest.register_alias("mapgen_gravel", "moontest:compressed_dust")
+-- add these two in case dungeons are enabled
+minetest.register_alias("mapgen_mossycobble", "moontest:cobble")
+minetest.register_alias("mapgen_cobble", "moontest:cobble")
 
---treegen function
+-- treegen function
 local function moontest_tree(x, y, z, area, data)
 
 	local c_tree = minetest.get_content_id("moontest:tree")
