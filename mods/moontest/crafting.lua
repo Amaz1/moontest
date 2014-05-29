@@ -145,6 +145,7 @@ minetest.register_craft({
 		{"group:mesecon_conductor_craftable"},
 		{"moontest:sapling"},
 	}
+})
 
 minetest.register_craft({
 	output = "mesecons_blinkyplant:blinky_plant_off 1",

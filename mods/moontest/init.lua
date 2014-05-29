@@ -85,7 +85,7 @@ end)
 minetest.register_abm({
 	nodenames = {"moontest:air", "air"},
 	neighbors = {"moontest:vacuum", "moontest:air"},
-	interval = 2,  --must be asynchronous with liquid ABM to avoid deadlock
+	interval = 4,  --must be asynchronous with liquid ABM to avoid deadlock
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local x = pos.x
@@ -160,7 +160,7 @@ minetest.register_abm({
 				or nodename == "moontest:dustprint1"
 				or nodename == "moontest:dustprint2" then
 					minetest.add_node({x=x+i,y=y+j,z=z+k},{name="moontest:soil"})
-					print ("[moontest] Hydroponic liquid saturates")
+					--print ("[moontest] Hydroponic liquid saturates") --huge lag
 				end
 			end
 		end
