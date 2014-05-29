@@ -6,7 +6,7 @@ For more information and discussion about this game, see the topic on the [Minet
 ##Contributors
 | Contributor     | Contribution  |
 |:---------------:|:-------------:|
-| ManOfMinetest24 | Everything    |
+| realtinymonster | Everything    |
 | Amaz1           | Code          |
 | 0gb_us          | Textures      |
 | CraigyDavi      | Code          |
@@ -17,4 +17,4 @@ For more information and discussion about this game, see the topic on the [Minet
 
 **Installation:** Unzip the file and rename it to "moontest". Then move it to the game directory.
 
-**Download:** https://github.com/ManOfMinetest24/moontest/archive/master.zip
+**Download:** https://github.com/realtinymonster/moontest/archive/master.zip
