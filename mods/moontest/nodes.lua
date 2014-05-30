@@ -56,7 +56,9 @@ minetest.register_node("moontest:basalt", {
 minetest.register_node("moontest:waterice", {
 	description = "Water Ice",
 	tiles = {"moontest_waterice.png"},
+	drawtype = "glasslike",
 	light_source = 1,
+	use_texture_alpha = true,
 	paramtype = "light",
 	sunlight_propagates = true,
 	groups = {cracky=3,melts=1},
