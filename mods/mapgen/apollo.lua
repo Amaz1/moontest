@@ -539,18 +539,6 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	local vi = area:index(px - 4,y,pz)
 	data[vi] = c_power
 	
-	--this was commented out because, while it places nodes, they don't have correct formspecs
-	--place chest, furnace, and ufo furnace
-	--y = yasurf + 7
-	--local vi = area:index(px - 2,y,pz)
-	--data[vi] = c_chest
-	--p2data[vi] = 3
-	--local vi = area:index(px,y,pz - 2)
-	--data[vi] = c_furnace
-	--p2data[vi] = 2
-	--local vi = area:index(px,y,pz + 2)
-	--data[vi] = c_ufurnace
-	--p2data[vi] = 0
 	
 	--create exit stairs
 	for z = pz - 1, pz + 1 do

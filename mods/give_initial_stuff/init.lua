@@ -10,5 +10,11 @@ minetest.register_on_newplayer(function(player)
 	player:get_inventory():add_item('main', 'default:sword_steel')
 	player:get_inventory():add_item('main', 'default:bread 50')
 	player:get_inventory():add_item('main', 'moontest:spacesuit')
+	if minetest.is_singleplayer() == false then
+		player:get_inventory():add_item('main', 'default:stone')
+		player:get_inventory():add_item('main', 'ufos:ufo')
+		player:get_inventory():add_item('main', 'mesecons:wire_00000000_off 18')
+		player:get_inventory():add_item('main', 'mesecons_blinkyplant:blinky_plant')
+	end
 end)
 

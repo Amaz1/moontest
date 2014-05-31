@@ -96,6 +96,17 @@ minetest.register_on_newplayer(function(player)
 	minetest.after(4, function(param)
 		point = minetest.setting_get_pos("static_spawnpoint")
 		param:setpos(point)
+		if minetest.is_singleplayer() then
+			minetest.place_node({x=point.x, y=point.y, z=point.z+2}, {name="default:chest", param2=3})
+			meta = minetest.get_meta({x=point.x, y=point.y, z=point.z+2})
+			inv = meta:get_inventory()
+			inv:add_item("main", 'default:stone')
+			inv:add_item("main", 'ufos:ufo')
+			inv:add_item("main", 'mesecons:wire_00000000_off 18')
+			inv:add_item("main", 'mesecons_blinkyplant:blinky_plant')
+		end
+		minetest.place_node({x=point.x-1, y=point.y, z=point.z+2}, {name="default:furnace", param2=2})
+		minetest.place_node({x=point.x+1, y=point.y, z=point.z+2}, {name="ufos:furnace", param2=0})
 	end, player)
 end)
 
@@ -157,25 +168,33 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					if minetest.setting_get_pos("static_spawnpoint") then
 						spawnpoint = minetest.setting_get_pos("static_spawnpoint")
 						gen_spawn = false
+						--read param2 data
+						local p2data = vm:get_param2_data()
+						mapgen:apollo_gen(area, data, p2data, spawnpoint)
+						vm:set_param2_data(p2data)
 					else 
 						if z >= z0 + 20 and z <= z1 -20 then
 						if x >= x0 + 20 and x <= x1 -20 then
 							if lasurf then
-								spawnpoint = {x=x, y=yasurf, z=z}
-							else
 								spawnpoint = {x=x, y=lasurf, z=z}
+							else
+								spawnpoint = {x=x, y=yasurf, z=z}
 							end
 							print(spawnpoint.x)
 							newy = spawnpoint.y + 7
 							minetest.setting_set("static_spawnpoint", spawnpoint.x..","..spawnpoint.y..","..spawnpoint.z)
 							gen_spawn = false
+							--read param2 data
+							local p2data = vm:get_param2_data()
+							mapgen:apollo_gen(area, data, p2data, spawnpoint)
+							vm:set_param2_data(p2data)
 						end
 						end
 					end
 					--read param2 data
-					local p2data = vm:get_param2_data()
-					mapgen:apollo_gen(area, data, p2data, spawnpoint)
-					vm:set_param2_data(p2data)	
+					--local p2data = vm:get_param2_data()
+					--mapgen:apollo_gen(area, data, p2data, spawnpoint)
+					--vm:set_param2_data(p2data)	
 				end
 			end
 		end
@@ -185,14 +204,6 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:set_lighting({day=0, night=0})
 	vm:calc_lighting()
 	vm:write_to_map(data)
-	
-	--this was commented out because, while it places nodes, they don't have correct formspecs
-	--local chestpos = minetest.setting_get_pos("static_spawnpoint")
-	--minetest.place_node({x=chestpos.x - 2,y=chestpos.y,z=chestpos.z}, {name="default:chest", param2=3})
-	--local meta = minetest.get_meta({x=chestpos.x - 2,y=chestpos.y,z=chestpos.z})
-	--local chestinv = meta:get_inventory()
-	--chestinv:add_item("main", 'default:stone')
-	--chestinv:add_item("main", 'ufos:ufo')
 end)
 
 --make liquid delete vacuum and air nodes nearby so as to allow flowing
