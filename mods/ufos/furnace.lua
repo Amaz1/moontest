@@ -7,8 +7,8 @@ ufos.furnace_inactive_formspec =
 	"list[current_name;fuel;3.5,0;1,1;]"..
 	"list[current_player;main;0,1.5;8,4;]"..
 	"label[4.5,0;Fuel: "..ufos.fuel.."]"..
-	"label[0,1;Press run (E) inside your UFO.]"..
-	"label[4,1;You need to park it next to this.]"
+	"label[0,1;Press E (run) inside your UFO.]"..
+	"label[4,1;Park UFO a block away from this.]"
 
 
 minetest.register_node("ufos:furnace", {
