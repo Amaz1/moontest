@@ -1,18 +1,19 @@
---[[ Set time to midnight.
 minetest.register_on_joinplayer(function(player)
-    minetest.set_timeofday(0.22)
-    minetest.set_time_speed(0)
+    minetest.setting_set("time_speed", 2.635431918)
 end)
-]]--
+minetest.register_on_shutdown(function(player)
+    minetest.setting_set("time_speed", 72)
+end)
+
 -- Disable clouds and enable them again when player leaves the game. (Experimental)
 minetest.register_on_joinplayer(function(player)
     minetest.setting_set("enable_clouds", 0)
 end)
-minetest.register_on_leaveplayer(function(player)
+minetest.register_on_shutdown(function(player)
     minetest.setting_set("enable_clouds", 1)
 end)
 
--- Sky textures
+--Sky textures
 minetest.register_on_joinplayer(function(player)
 	minetest.after(0, function()
 		skytextures ={
