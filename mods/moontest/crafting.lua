@@ -125,27 +125,26 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "moontest:helmet",
 	recipe = {
-		{"default:mese_crystal"},
+		{"moontest:lunarium_ingot"},
 		{"default:glass"},
-		{"default:steel_ingot"},
+		{"moontest:lunarium_ingot"},
 	}
 })
 
 minetest.register_craft({
 	output = "moontest:lifesupport",
 	recipe = {
-		{"default:steel_ingot","default:steel_ingot" , "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:mese", "default:steel_ingot"},
+		{"moontest:lunarium_ingot","moontest:lunarium_ingot" , "moontest:lunarium_ingot"},
+		{"moontest:lunarium_ingot", "default:mese", "moontest:lunarium_ingot"},
+		{"moontest:lunarium_ingot", "moontest:lunarium_ingot", "moontest:lunarium_ingot"},
 	}
 })
 
 minetest.register_craft({
 	output = "moontest:spacesuit",
 	recipe = {
-		{"wool:white", "moontest:helmet", "wool:white"},
-		{"", "moontest:lifesupport", ""},
-		{"wool:white", "", "wool:white"},
+		{"moontest:helmet"},
+		{"moontest:lifesupport"},
 	}
 })
 
