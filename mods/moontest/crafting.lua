@@ -68,6 +68,29 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "moontest:compressed_dust 3",
+	recipe = {
+		{"moontest:dust", "moontest:dust", "moontest:dust"},
+		{"moontest:dust", "moontest:dust", "moontest:dust"},
+		{"moontest:dust", "moontest:dust", "moontest:dust"},
+	}
+})
+
+minetest.register_craft({
+	output = "moontest:dust 9",
+	recipe = {
+		{"moontest:compressed_dust", "moontest:compressed_dust", "moontest:compressed_dust"},
+	}
+})
+
+minetest.register_craft({
+	output = "moontest:dust 3",
+	recipe = {
+		{"moontest:compressed_dust"},
+	}
+})
+
+minetest.register_craft({
     output = "default:furnace",
     recipe = {
         {"moontest:stone", "moontest:stone", "moontest:stone"},
