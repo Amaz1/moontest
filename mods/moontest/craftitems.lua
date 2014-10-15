@@ -1,10 +1,5 @@
 -- Craft items
 
-minetest.register_craftitem("moontest:spacesuit", {
-	description = "Spacesuit",
-	inventory_image = "moontest_spacesuit.png",
-})
-
 minetest.register_craftitem("moontest:light_crystal", {
 	description = "Light Crystal",
 	inventory_image = "moontest_light_crystal.png",
