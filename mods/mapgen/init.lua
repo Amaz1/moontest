@@ -19,7 +19,7 @@ minetest.register_biome({
 	node_top = "moontest:dust",
 	depth_top = 2,
 	node_bottom = "moontest:stone",
-	node_dust = "air",
+	node_dust = "moontest:vacuum",
 	height_min = 3,
 	height_max = 30,
 })
@@ -29,9 +29,7 @@ minetest.register_biome({
 	name = "basalt",
 	node_top = "moontest:basalt",
 	depth_top = 2,
-	node_filler = "moontest:dust",
-	depth_filler = 1,
-	node_dust = "air",
+	node_dust = "moontest:vacuum",
 	height_min = -50,
 	height_max = 5,
 })
@@ -42,7 +40,7 @@ minetest.register_biome({
 	node_top = "moontest:waterice",
 	depth_top = 4,
 	node_filler = "moontest:dust",
-	depth_filler = 2,
+	depth_filler = 10,
 	node_dust = "air",
 	height_min = 25,
 	height_max = 100,
@@ -54,6 +52,7 @@ minetest.register_alias("mapgen_lava_source", "default:lava_source")
 minetest.register_alias("mapgen_stone", "moontest:stone")
 minetest.register_alias("mapgen_dirt", "moontest:dust")
 minetest.register_alias("mapgen_gravel", "moontest:compressed_dust")
+minetest.register_alias("mapgen_water_source", "moontest:vacuum")
 -- add these two in case dungeons are enabled
 minetest.register_alias("mapgen_mossycobble", "moontest:cobble")
 minetest.register_alias("mapgen_cobble", "moontest:cobble")

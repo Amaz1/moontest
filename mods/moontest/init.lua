@@ -216,3 +216,8 @@ minetest.register_abm({
 		minetest.set_node(pos, {name = "moontest:unlit_torch", param2=p2})
 	end,
 })
+
+--Physics
+minetest.register_on_joinplayer(function(player)
+    player:set_physics_override(1, 1, 0.27)
+end)
