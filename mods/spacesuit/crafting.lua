@@ -143,3 +143,32 @@ minetest.register_craft({
         {"default:mese_crystal", "", "default:mese_crystal"},
     },
 })
+
+--Oxygen Tanks
+
+minetest.register_craft({
+    output = "spacesuit:steel_oxygen_tank",
+    recipe = {
+        {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+        {"default:steel_ingot", "", "default:steel_ingot"},
+        {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+    },
+})
+
+minetest.register_craft({
+    output = "spacesuit:titanium_oxygen_tank",
+    recipe = {
+        {"moontest:titanium_ingot", "moontest:titanium_ingot", "moontest:titanium_ingot"},
+        {"moontest:titanium_ingot", "", "moontest:titanium_ingot"},
+        {"moontest:titanium_ingot", "moontest:titanium_ingot", "moontest:titanium_ingot"},
+    },
+})
+
+minetest.register_craft({
+    output = "spacesuit:mese_oxygen_tank",
+    recipe = {
+        {"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
+        {"default:mese_crystal", "", "default:mese_crystal"},
+        {"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
+    },
+})
