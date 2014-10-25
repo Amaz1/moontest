@@ -106,6 +106,7 @@ function default.node_sound_glass_defaults(table)
 end
 
 -- Load files
+dofile(minetest.get_modpath("default").."/functions.lua")
 dofile(minetest.get_modpath("default").."/nodes.lua")
 dofile(minetest.get_modpath("default").."/craftitems.lua")
 dofile(minetest.get_modpath("default").."/player.lua")
