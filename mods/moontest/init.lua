@@ -37,13 +37,6 @@ minetest.register_globalstep(function(dtime)
 				z=player_pos[player:get_player_name()].z
 			}
 		end
-        -- Check if player has spacesuit in inventory
-		if math.random() < 0.1 then
-			if player:get_inventory():contains_item("main", "moontest:spacesuit")
-			and player:get_breath() < 11 then
-				player:set_breath(11)
-			end
-		end
 		if math.random() > 0.99 then
 			local pos = player:getpos()
 		end
