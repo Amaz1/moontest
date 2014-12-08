@@ -93,12 +93,12 @@ minetest.register_on_newplayer(function(player)
 		player:setpos(minetest.setting_get_pos("static_spawnpoint"))
 	end	
 	minetest.after(4, function(param)
-		point = minetest.setting_get_pos("static_spawnpoint")
+		local point = minetest.setting_get_pos("static_spawnpoint")
 		param:setpos(point)
 		if minetest.is_singleplayer() then
 			minetest.place_node({x=point.x, y=point.y, z=point.z+2}, {name="default:chest", param2=3})
-			meta = minetest.get_meta({x=point.x, y=point.y, z=point.z+2})
-			inv = meta:get_inventory()
+			local meta = minetest.get_meta({x=point.x, y=point.y, z=point.z+2})
+			local inv = meta:get_inventory()
 			inv:add_item("main", 'default:stone')
 			inv:add_item("main", 'ufos:ufo')
 			inv:add_item("main", 'mesecons:wire_00000000_off 18')
@@ -180,7 +180,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								spawnpoint = {x=x, y=yasurf, z=z}
 							end
 							print(spawnpoint.x)
-							newy = spawnpoint.y + 7
+							--newy = spawnpoint.y + 7
 							minetest.setting_set("static_spawnpoint", spawnpoint.x..","..spawnpoint.y..","..spawnpoint.z)
 							gen_spawn = false
 							--read param2 data

@@ -96,6 +96,8 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 			end
 		end
 	end
+
+	local x,y,z
 	--create cabin
 	for y = yasurf + 9, yasurf + 10 do
 		for x = px - 2, px + 2 do
@@ -553,7 +555,6 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 			xdiff = xdiff + 1
 		end
 	end
-	
-	newy = pos.y + 7
-	minetest.setting_set("static_spawnpoint", pos.x..","..newy..","..pos.z)
+
+	minetest.setting_set("static_spawnpoint", pos.x..","..pos.y+7 ..","..pos.z)
 end
