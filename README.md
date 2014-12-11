@@ -7,7 +7,8 @@ For more information and discussion about this game, see the topic on the [Minet
 | Contributor      | Contribution   |
 |:----------------:|:--------------:|
 | realtinymonster  | Everything     |
-| Amaz (Amaz1)    | Code & Textures|
+| Amaz (Amaz1)     | Code & Textures|
+| fishyWET         | Code & Textures|
 | rubberduck (IRC) | Textures       |
 | CraigyDavi       | Code           |
 | HeroOfTheWinds   | Code           |
