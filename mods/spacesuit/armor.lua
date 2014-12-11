@@ -230,9 +230,9 @@ end
 
 armor.get_player_skin = function(self, name)
 	local skin = nil
-	if skins then
+	if rawget(_G, "skins") then
 		skin = skins.skins[name]
-	elseif u_skins then
+	elseif rawget(_G, "u_skins") then
 		skin = u_skins.u_skins[name]
 	end
 	return skin or armor.default_skin
@@ -472,7 +472,7 @@ minetest.register_globalstep(function(dtime)
 	end
      for _, player in ipairs(minetest.get_connected_players()) do
      for i=1, 2 do
-               state = 0
+               --state = 0
                local name = player:get_player_name()
                local oxygen_tank = minetest.get_inventory({type="detached", name=name.."_oxygen_tank"})
                local player_inv = player:get_inventory()
@@ -489,7 +489,7 @@ minetest.register_globalstep(function(dtime)
 				     stack:add_wear(oxygen_level)
 				     oxygen_tank:set_stack("oxygen", i, stack)
 				     player_inv:set_stack("oxygen", i, stack)
-				     state = state + stack:get_wear()
+				     --state = state + stack:get_wear()
                          local items = 0
 				     items = items + 1
 				     if stack:get_count() == 0 then

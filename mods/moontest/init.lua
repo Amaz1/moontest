@@ -11,7 +11,7 @@ dofile(minetest.get_modpath("moontest").."/tools.lua")
 local player_pos = {}
 local player_pos_previous = {}
 
-minetest.register_globalstep(function(dtime)
+--[[minetest.register_globalstep(function(dtime)	FOOT is not declared
 	for _, player in ipairs(minetest.get_connected_players()) do
         -- Footprints
 		if FOOT and math.random() < 0.3 and player_pos_previous[player:get_player_name()] ~= nil then
@@ -37,11 +37,8 @@ minetest.register_globalstep(function(dtime)
 				z=player_pos[player:get_player_name()].z
 			}
 		end
-		if math.random() > 0.99 then
-			local pos = player:getpos()
-		end
 	end
-end)
+end)]]
 
 -- Vacuum or air flows into a dug hole
 minetest.register_on_dignode(function(pos, oldnode, digger)
