@@ -9,6 +9,7 @@ For more information and discussion about this game, see the topic on the [Minet
 | realtinymonster  | Everything     |
 | Amaz (Amaz1)     | Code & Textures|
 | fishyWET         | Code & Textures|
+| paramat          | Code           |
 | rubberduck (IRC) | Textures       |
 | CraigyDavi       | Code           |
 | HeroOfTheWinds   | Code           |
