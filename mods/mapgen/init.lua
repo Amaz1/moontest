@@ -5,11 +5,17 @@ dofile(minetest.get_modpath("mapgen").."/apollo.lua")
 
 -- Set mapgen mode to v7
 minetest.register_on_mapgen_init(function(params)
+	local mapgen = minetest.get_mapgen_params()
+	if mapgen.mgname == "v5" then
+		mapgen.mgname = "v5"
+	else
+		mapgen.mgname = "v7"
+	end
 	minetest.set_mapgen_params({
-		mgname = "v7",
+		mgname = mapgen.mgname,
 		seed = params.seed,
 		water_level = 1,
-		flags = "caves",
+		flags = "caves, nodungeons",
 	})
 end)
 
@@ -18,10 +24,10 @@ minetest.register_biome({
 	name = "plains",
 	node_top = "moontest:dust",
 	depth_top = 2,
-	node_bottom = "moontest:stone",
-	node_dust = "moontest:vacuum",
-	height_min = 3,
-	height_max = 30,
+	y_min = 3,
+	y_max = 75,
+	heat_point = 50,
+	humidity_point = 50,
 })
 
 -- Basalt Biome
@@ -30,20 +36,23 @@ minetest.register_biome({
 	node_top = "moontest:basalt",
 	depth_top = 2,
 	node_dust = "moontest:vacuum",
-	height_min = -50,
-	height_max = 5,
+	y_min = -50,
+	y_max = 5,
+	heat_point = 75,
+	humidity_point = 25,
 })
 
 -- Lunar Ice Cap Biome
 minetest.register_biome({
-	name = "plains",
+	name = "ice",
 	node_top = "moontest:waterice",
-	depth_top = 4,
+	depth_top = 2,
 	node_filler = "moontest:dust",
-	depth_filler = 10,
-	node_dust = "air",
-	height_min = 25,
-	height_max = 100,
+	depth_filler = 5,
+	y_min = 65,
+	y_max = 1000,
+	heat_point = 25,
+	humidity_point = 75,
 })
 
 -- Aliases

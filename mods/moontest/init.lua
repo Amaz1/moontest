@@ -5,6 +5,7 @@ moontest = {}
 
 dofile(minetest.get_modpath("moontest").."/nodes.lua")
 dofile(minetest.get_modpath("moontest").."/crafting.lua")
+dofile(minetest.get_modpath("moontest").."/chatcommands.lua")
 dofile(minetest.get_modpath("moontest").."/craftitems.lua")
 dofile(minetest.get_modpath("moontest").."/tools.lua")
 
