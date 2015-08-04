@@ -40,6 +40,17 @@ local player_pos_previous = {}
 	end
 end)]]
 
+minetest.register_globalstep(function(dtime)
+	for _, player in ipairs(minetest.get_connected_players()) do
+		if math.random() < 0.1 then
+			if player:get_inventory():contains_item("main", "moontest:spacesuit")
+			and player:get_breath() < 11 then
+				player:set_breath(11)
+			end
+		end
+	end
+end)
+
 -- Vacuum or air flows into a dug hole
 minetest.register_on_dignode(function(pos, oldnode, digger)
 	local x = pos.x
@@ -185,13 +196,31 @@ minetest.register_abm({
 	end,
 })
 
+moontest.tree = function(pos)
+	local t = 4 + math.random(2) -- trunk height
+	for j = -2, t do
+		if j == t or j == t - 2 then
+			for i = -2, 2 do
+			for k = -2, 2 do
+				local absi = math.abs(i)
+				local absk = math.abs(k)
+				if math.random() > (absi + absk) / 24 then
+					minetest.add_node({x=pos.x+i,y=pos.y+j+math.random(0, 1),z=pos.z+k},{name="moontest:leaves"})
+				end
+			end
+			end
+		end
+		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="moontest:tree"})
+	end
+end
+
 -- Space appletree from sapling
 minetest.register_abm({
 	nodenames = {"moontest:sapling"},
 	interval = 57,
 	chance = 3,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		moontest_appletree(pos)
+		moontest.tree(pos)
 	end,
 })
 

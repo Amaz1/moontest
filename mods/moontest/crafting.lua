@@ -162,6 +162,32 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "moontest:helmet",
+	recipe = {
+		{"moontest:lunarium_ingot"},
+		{"default:glass"},
+		{"moontest:lunarium_ingot"},
+	}
+})
+
+minetest.register_craft({
+	output = "moontest:lifesupport",
+	recipe = {
+		{"moontest:lunarium_ingot","moontest:lunarium_ingot" , "moontest:lunarium_ingot"},
+		{"moontest:lunarium_ingot", "default:mese", "moontest:lunarium_ingot"},
+		{"moontest:lunarium_ingot", "moontest:lunarium_ingot", "moontest:lunarium_ingot"},
+	}
+})
+
+minetest.register_craft({
+	output = "moontest:spacesuit",
+	recipe = {
+		{"moontest:helmet"},
+		{"moontest:lifesupport"},
+	}
+})
+
 --Recipe redefinitions for compatibility
 
 --Mesecons

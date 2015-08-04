@@ -10,6 +10,21 @@ minetest.register_craftitem("moontest:phosphorus_lump", {
 	inventory_image = "moontest_phosphorus_lump.png",
 })
 
+minetest.register_craftitem("moontest:spacesuit", {
+	description = "Spacesuit",
+	inventory_image = "moontest_spacesuit.png",
+})
+
+minetest.register_craftitem("moontest:helmet", {
+	description = "Helmet",
+	inventory_image = "moontest_helmet.png",
+})
+
+minetest.register_craftitem("moontest:lifesupport", {
+	description = "Life Support",
+	inventory_image = "moontest_lifesupport.png",
+})
+
 minetest.register_craftitem("moontest:titanium_lump", {
 	description = "Titanium Lump",
 	inventory_image = "moontest_titanium_lump.png",
