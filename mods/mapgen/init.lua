@@ -1,5 +1,23 @@
 -- Mapgen
 
+function moontest.loadspawn()
+    local input = io.open(minetest.get_worldpath() .. "/spawn.txt", "r")
+    if input then
+		repeat
+            local x = input:read("*n")
+            if x == nil then
+				break
+            end
+            local y = input:read("*n")
+            local z = input:read("*n")
+            moontest.spawn = {x = x, y = y, z = z}
+        until input:read(0) == nil
+        io.close(input)
+    else
+        moontest.spawn = nil
+    end
+end
+
 dofile(minetest.get_modpath("mapgen").."/ores.lua")
 dofile(minetest.get_modpath("mapgen").."/apollo.lua")
 
@@ -99,22 +117,26 @@ minetest.register_on_newplayer(function(player)
 		gen_spawn = true
 	else
 		gen_spawn = false
-		player:setpos(minetest.setting_get_pos("static_spawnpoint"))
-	end	
-	minetest.after(4, function(param)
-		local point = minetest.setting_get_pos("static_spawnpoint")
-		param:setpos(point)
-		if minetest.is_singleplayer() then
-			minetest.place_node({x=point.x, y=point.y, z=point.z+2}, {name="default:chest", param2=3})
-			local meta = minetest.get_meta({x=point.x, y=point.y, z=point.z+2})
-			local inv = meta:get_inventory()
-			inv:add_item("main", 'default:stone')
-			inv:add_item("main", 'ufos:ufo')
-			inv:add_item("main", 'mesecons:wire_00000000_off 18')
-			inv:add_item("main", 'mesecons_blinkyplant:blinky_plant')
+		moontest.loadspawn()
+		player:setpos(moontest.spawn)
+	end
+	minetest.after(3, function(param)
+		moontest.loadspawn()
+		if moontest.spawn then
+			local point = moontest.spawn
+			param:setpos(point)
+			if minetest.is_singleplayer() then
+				minetest.place_node({x=point.x, y=point.y, z=point.z+2}, {name="default:chest", param2=3})
+				local meta = minetest.get_meta({x=point.x, y=point.y, z=point.z+2})
+				local inv = meta:get_inventory()
+				inv:add_item("main", 'default:stone')
+				inv:add_item("main", 'ufos:ufo')
+				inv:add_item("main", 'mesecons:wire_00000000_off 18')
+				inv:add_item("main", 'mesecons_blinkyplant:blinky_plant')
+			end
+			minetest.place_node({x=point.x-1, y=point.y, z=point.z+2}, {name="default:furnace", param2=2})
+			minetest.place_node({x=point.x+1, y=point.y, z=point.z+2}, {name="ufos:furnace", param2=0})
 		end
-		minetest.place_node({x=point.x-1, y=point.y, z=point.z+2}, {name="default:furnace", param2=2})
-		minetest.place_node({x=point.x+1, y=point.y, z=point.z+2}, {name="ufos:furnace", param2=0})
 	end, player)
 end)
 
@@ -135,8 +157,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local c_vac = minetest.get_content_id("moontest:vacuum")
 	local c_dust = minetest.get_content_id("moontest:dust")
 	local c_hl = minetest.get_content_id("moontest:hlsource")
-	
-	
+
+
 	--loop through every node of the chunk
 	for z = z0, z1 do
 		for x = x0, x1 do
@@ -180,7 +202,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 						local p2data = vm:get_param2_data()
 						mapgen:apollo_gen(area, data, p2data, spawnpoint)
 						vm:set_param2_data(p2data)
-					else 
+					else
 						if z >= z0 + 20 and z <= z1 -20 then
 						if x >= x0 + 20 and x <= x1 -20 then
 							if lasurf then
@@ -190,7 +212,6 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							end
 							print(spawnpoint.x)
 							--newy = spawnpoint.y + 7
-							minetest.setting_set("static_spawnpoint", spawnpoint.x..","..spawnpoint.y..","..spawnpoint.z)
 							gen_spawn = false
 							--read param2 data
 							local p2data = vm:get_param2_data()
@@ -202,7 +223,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					--read param2 data
 					--local p2data = vm:get_param2_data()
 					--mapgen:apollo_gen(area, data, p2data, spawnpoint)
-					--vm:set_param2_data(p2data)	
+					--vm:set_param2_data(p2data)
 				end
 			end
 		end

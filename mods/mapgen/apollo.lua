@@ -5,7 +5,7 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	local px = pos.x
 	local py = pos.y
 	local pz = pos.z
-	
+
 	--moontest node content_ids
 	local c_dust = minetest.get_content_id("moontest:dust")
 	local c_bas = minetest.get_content_id("moontest:basalt")
@@ -45,7 +45,7 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	local c_power = minetest.get_content_id("mesecons_powerplant:power_plant")
 	--air
 	local c_air = minetest.get_content_id("air")
-		
+
 	local yasurf = py
 	--clear out an area for the apollo module
 	for x = px - 13, px + 13 do
@@ -340,7 +340,7 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	data[vi] = c_gblock
 	local vi = area:index(px,y,pz + 6)
 	data[vi] = c_gblock
-	
+
 	y = yasurf + 3
 	local vi = area:index(px - 9,y,pz)
 	data[vi] = c_gblock
@@ -488,7 +488,7 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	data[vi] = c_mfr
 	local vi = area:index(px + 2,y,pz + 2)
 	data[vi] = c_mfl
-	
+
 	local vi = area:index(px - 2,y,pz)
 	data[vi] = c_mbu
 	local vi = area:index(px + 2,y,pz)
@@ -497,7 +497,7 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	data[vi] = c_mru
 	local vi = area:index(px,y,pz + 2)
 	data[vi] = c_mlu
-	
+
 	--power plant and lamps
 	y = yasurf + 12
 	local vi = area:index(px - 1,y,pz)
@@ -512,7 +512,7 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	local vi = area:index(px,y,pz + 1)
 	data[vi] = c_lamp
 	p2data[vi] = 4
-	
+
 	y = yasurf + 10
 	local vi = area:index(px - 3,y,pz - 2)
 	data[vi] = c_lamp
@@ -540,8 +540,8 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 	p2data[vi] = 4
 	local vi = area:index(px - 4,y,pz)
 	data[vi] = c_power
-	
-	
+
+
 	--create exit stairs
 	for z = pz - 1, pz + 1 do
 		local ydiff = 6
@@ -556,5 +556,18 @@ function mapgen:apollo_gen(area, data, p2data, pos)--minetest.register_on_genera
 		end
 	end
 
-	minetest.setting_set("static_spawnpoint", pos.x..","..pos.y+7 ..","..pos.z)
+	local output = io.open(minetest.get_worldpath() .. "/spawn.txt", "w")
+	output:write(pos.x .. " " .. pos.y+7 .. " ".. pos.z.. "\n")
+	io.close(output)
 end
+
+minetest.register_on_respawnplayer(function(player)
+	moontest.loadspawn()
+	if player then
+		if moontest.spawn then
+			player:setpos(moontest.spawn)
+			return true
+		end
+	end
+	return false
+end)
